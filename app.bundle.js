@@ -1,1 +1,0 @@
-(self.webpackChunktodo_list=self.webpackChunktodo_list||[]).push([[143],{672:()=>{}},s=>{s(s.s=672)}]);
