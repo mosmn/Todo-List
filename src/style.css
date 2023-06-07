@@ -1,9 +1,25 @@
 body {
-    background-color: #d29797;
+    background-color: #ffffff;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: 1.6em;
     margin: 0;
     padding: 0;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "header header"
+        "sidebar main";
+}
+
+.header {
+    grid-area: header;
+    background-color: #d29797;
+    padding: 20px;
+    height: 10px;
 }

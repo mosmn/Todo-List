@@ -7,6 +7,7 @@ module.exports = {
     todo: "./src/todo.js",
     projects: "./src/projects.js",
     storage: "./src/storage.js",
+    date: "./src/date.js",
     dom: "./src/dom.js",
   },
   devtool: "inline-source-map",
