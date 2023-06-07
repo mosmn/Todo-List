@@ -9,15 +9,44 @@ const createElement = (tagName, className, textContent) => {
     return element;
 };
 
+const createTask = () => {
+    const task = createNewTodo(
+        document.querySelector('.task-title').value,
+        document.querySelector('.task-description').value,
+        document.querySelector('.task-due-date').value,
+        document.querySelector('.task-priority').value
+    )
+
+    return task;
+}
+
 const taskFactory = (todo) => {
     const task = createElement('div', 'task', '');
     task.innerHTML = `
-        <div class="task-title">${todo.title}</div>
-        <div class="task-description">${todo.description}</div>
-        <div class="task-due-date">${todo.dueDate}</div>
-        <div class="task-priority">${todo.priority}</div>
+        <div class="task-header">
+            <h2>${todo.title}</h2>
+            <img class="delete-task" src="https://img.icons8.com/ios/50/000000/delete-sign-filled.png"/>
+        </div>
+        <div class="task-body">
+            <p>${todo.description}</p>
+            <p>${todo.dueDate}</p>
+            <p>${todo.priority}</p>
+        </div>
     `
     return task;
+}
+
+const renderTasks = () => {
+    const taskList = document.querySelector('.task-list');
+    taskList.innerHTML = '';
+    todoList.forEach(todo => {
+        taskList.appendChild(taskFactory(todo));
+    })
+}
+
+const addTask = () => {
+    addTodo(createTask());
+    renderTasks();
 }
 
 const initialPageLoad = () => {
@@ -28,12 +57,6 @@ const initialPageLoad = () => {
             <h1>Todo List</h1>
         </div>
         <div class="sidebar">
-            <div class="sidebar-title">Projects</div>
-            <div class="sidebar-projects">
-                <div class="sidebar-project">Project 1</div>
-                <div class="sidebar-project">Project 2</div>
-                <div class="sidebar-project">Project 3</div>
-            </div>
         </div>
         <div class="tasks">
             <div class="task-form">
@@ -51,8 +74,9 @@ const initialPageLoad = () => {
         </div>
     `   
     document.body.appendChild(mainContainer);
+
+    const submitTask = document.querySelector('.task-submit');
+    submitTask.addEventListener('click', addTask);
 }
 
 document.addEventListener('DOMContentLoaded', initialPageLoad);
-
-
