@@ -17,9 +17,9 @@ body {
         "sidebar main";
 }
 
-.header {
+.header-bar {
     grid-area: header;
     background-color: #d29797;
     padding: 20px;
-    height: 10px;
+    height: 20px;
 }
