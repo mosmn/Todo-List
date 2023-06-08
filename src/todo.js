@@ -18,7 +18,13 @@ const todoLogic = (() => {
     todoList.splice(index, 1);
   };
 
-  return { addTodo, removeTodo };
+  // when a task is completed, it is moved to the end of the list
+  const completeTodo = (index) => {
+    const completedTodo = todoList.splice(index, 1);
+    todoList.push(completedTodo[0]);
+    };
+
+  return { addTodo, removeTodo, completeTodo };
 })();
 
 export { todoList, createNewTodo, todoLogic };

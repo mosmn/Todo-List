@@ -28,7 +28,7 @@ const taskFactory = (todo) => {
   task.innerHTML = `
         <div class="task-header">
             <div class="left">
-                <div class="complete-task">
+                <div class="complete-task" id="${i}">
                     <div class="checkmark">&#10004;</div>
                 </div>
                 <h2>${todo.title}</h2>
@@ -51,6 +51,7 @@ const renderTasks = () => {
     taskList.appendChild(taskFactory(todo));
   });
   remover();
+    completer();
 };
 
 const addTask = () => {
@@ -128,6 +129,22 @@ const remover = () => {
       deleteTask(button.id);
     });
   });
+};
+
+// when a task is completed, it is moved to the end of the list with animation
+const completeTask = (index) => {
+    removeTaskElement(index);
+    todoLogic.completeTodo(index);
+    renderTasks();
+};
+
+const completer = () => {
+    const completeTaskButtons = document.querySelectorAll(".complete-task");
+    completeTaskButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            completeTask(button.id);
+        });
+    });
 };
 
 const initialPageLoad = () => {

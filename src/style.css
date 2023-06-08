@@ -275,8 +275,8 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 50px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     color: #d29797;
     border-radius: 50%;
 }
@@ -297,5 +297,4 @@ body {
         color: #b76f6f;
     }
 }
-
 
