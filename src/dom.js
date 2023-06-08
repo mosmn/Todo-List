@@ -84,8 +84,8 @@ const adder = () => {
 const renderAddTaskForm = () => {
     const inputForm = createElement("div", "task-form", "");
     inputForm.innerHTML = `
-    <input class="task-title" type="text" placeholder="Title">
-    <input class="task-description" type="text" placeholder="Description">
+    <input class="task-title" type="text" placeholder="Title" required>
+    <input class="task-description" type="text" placeholder="Description" required>
     <input class="task-due-date" type="date">
     <select class="task-priority">
         <option value="low">Low</option>
