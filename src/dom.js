@@ -1,5 +1,6 @@
 import './style.css';
-import {todoList, createNewTodo, addTodo} from './todo.js';
+// eslint-disable-next-line import/named, import/extensions
+import {todoList, createNewTodo, todoLogic} from './todo.js';
 
 const createElement = (tagName, className, textContent) => {
     const element = document.createElement(tagName);
@@ -21,11 +22,14 @@ const createTask = () => {
 }
 
 const taskFactory = (todo) => {
+    const i = todoList.indexOf(todo);
     const task = createElement('div', 'task', '');
+    task.setAttribute('data-index', i);
     task.innerHTML = `
         <div class="task-header">
             <h2>${todo.title}</h2>
-            <img class="delete-task" src="https://img.icons8.com/ios/50/000000/delete-sign-filled.png"/>
+            <img class="complete-task" id="${i}" src="https://img.icons8.com/ios/50/000000/checked-filled.png"/>
+            <img class="delete-task" id="${i}" src="https://img.icons8.com/ios/50/000000/delete-filled.png"/>
         </div>
         <div class="task-body">
             <p>${todo.description}</p>
@@ -45,8 +49,29 @@ const renderTasks = () => {
 }
 
 const addTask = () => {
-    addTodo(createTask());
+    todoLogic.addTodo(createTask());
     renderTasks();
+    remover();
+}
+
+const removeTaskElement = (index) => {
+    const taskList = document.querySelector('.task-list');
+    const task = document.querySelector(`[data-index="${index}"]`);
+    taskList.removeChild(task);
+}
+
+const deleteTask = (index) => {
+    todoLogic.removeTodo(index);
+    removeTaskElement(index);
+}
+
+const remover = () => {
+    const deleteTaskButtons = document.querySelectorAll('.delete-task');
+    deleteTaskButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            deleteTask(button.id);
+        })
+    })
 }
 
 const initialPageLoad = () => {
@@ -57,6 +82,12 @@ const initialPageLoad = () => {
             <h1>Todo List</h1>
         </div>
         <div class="sidebar">
+            <div class="default">
+                <div class="Inbox">Inbox</div>
+                <div class="Today">Today</div>
+                <div class="Upcoming">Upcoming</div>
+            </div>
+            <div class="projects">Projects</div>
         </div>
         <div class="tasks">
             <div class="task-form">
@@ -80,3 +111,5 @@ const initialPageLoad = () => {
 }
 
 document.addEventListener('DOMContentLoaded', initialPageLoad);
+
+

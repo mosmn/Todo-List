@@ -11,7 +11,7 @@ body {
 
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr;
     grid-template-rows: 45px 1fr;
     grid-template-areas: 
         "header header"
@@ -31,6 +31,7 @@ body {
     background-color: #FAFAFA;
     padding: 20px;
     height: 100%;
+    max-width: 350px;
 }
 
 .tasks {
