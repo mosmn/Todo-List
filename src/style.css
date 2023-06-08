@@ -159,10 +159,6 @@ body {
     width: 100%;
   }
   
-  .task:nth-child(even) {
-    background-color: #f9f9f9; /* Alternate background color for even tasks */
-  }
-  
   .task-header {
     display: flex;
     justify-content: space-between;
@@ -170,10 +166,66 @@ body {
   }
   
   .task-header h2 {
-    margin-right: 10px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 900;
   }
   
   .task-body p {
     margin: 5px 0;
   }
   
+  .task-header .complete-task {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 3px solid #b76f6f;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .task-header .complete-task .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #b76f6f;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .task-header .complete-task:hover .checkmark {
+    margin-top: 2px;
+    opacity: 1;
+  }
+  
+  .task-header .complete-task.checked .checkmark {
+    opacity: 1;
+  }
+  
+  .task-header img.delete-task {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .task-header img.delete-task:hover {
+    animation: shake 0.3s;
+  }
+  
+  @keyframes shake {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(10deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(10deg); }
+    80% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  
+  
+  
+
+

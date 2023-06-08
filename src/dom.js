@@ -27,8 +27,10 @@ const taskFactory = (todo) => {
   task.setAttribute("data-index", i);
   task.innerHTML = `
         <div class="task-header">
+            <div class="complete-task">
+                <div class="checkmark">&#10004;</div>
+            </div>
             <h2>${todo.title}</h2>
-            <img class="complete-task" id="${i}" src="https://img.icons8.com/ios/50/000000/checked-filled.png"/>
             <img class="delete-task" id="${i}" src="https://img.icons8.com/ios/50/000000/delete-filled.png"/>
         </div>
         <div class="task-body">
