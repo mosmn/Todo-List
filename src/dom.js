@@ -46,12 +46,12 @@ const renderTasks = () => {
     todoList.forEach(todo => {
         taskList.appendChild(taskFactory(todo));
     })
+    remover();
 }
 
 const addTask = () => {
     todoLogic.addTodo(createTask());
     renderTasks();
-    remover();
 }
 
 const removeTaskElement = (index) => {
@@ -63,6 +63,7 @@ const removeTaskElement = (index) => {
 const deleteTask = (index) => {
     todoLogic.removeTodo(index);
     removeTaskElement(index);
+    renderTasks();
 }
 
 const remover = () => {
