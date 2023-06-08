@@ -79,8 +79,16 @@ const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
   mainContainer.innerHTML = `
         <div class="header-bar">
-            <img src="https://img.icons8.com/ios/50/000000/todo-list-filled.png"/>
-            <h1>Todo List</h1>
+            <button class="menu-button">
+                <img src="https://img.icons8.com/ios/50/000000/menu-filled.png"/>
+            </button>
+            <div class="logo">
+                <img src="https://img.icons8.com/ios/50/000000/todo-list-filled.png"/>
+                <h1>Todo List</h1>
+            </div>
+            <div class="user">
+                <img src="https://img.icons8.com/ios/50/000000/user-filled.png"/>
+            </div>
         </div>
         <div class="sidebar">
             <div class="default">
