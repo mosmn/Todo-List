@@ -27,10 +27,12 @@ const taskFactory = (todo) => {
   task.setAttribute("data-index", i);
   task.innerHTML = `
         <div class="task-header">
-            <div class="complete-task">
-                <div class="checkmark">&#10004;</div>
+            <div class="left">
+                <div class="complete-task">
+                    <div class="checkmark">&#10004;</div>
+                </div>
+                <h2>${todo.title}</h2>
             </div>
-            <h2>${todo.title}</h2>
             <img class="delete-task" id="${i}" src="https://img.icons8.com/ios/50/000000/delete-filled.png"/>
         </div>
         <div class="task-body">
@@ -54,6 +56,57 @@ const renderTasks = () => {
 const addTask = () => {
   todoLogic.addTodo(createTask());
   renderTasks();
+};
+
+const addTaskFormbtn = () => {
+    const addTaskBtn = createElement("div", "add-taskbtn", "");
+    addTaskBtn.innerHTML = `
+    <div class="add-symbol">+</div>
+    <div class="add-task">Add Task</div>
+    `;
+    const tasks = document.querySelector(".tasks");
+    tasks.appendChild(addTaskBtn);
+    addTaskBtn.addEventListener("click", renderAddTaskForm);
+};
+
+const adder = () => {
+    const taskSubmit = document.querySelector(".task-submit");
+    const taskCancel = document.querySelector(".task-cancel");
+    taskSubmit.addEventListener("click", () => {
+        addTask();
+        closeAddTaskForm();
+    });
+    taskCancel.addEventListener("click", () => {
+        closeAddTaskForm();
+    });
+};
+
+const renderAddTaskForm = () => {
+    const inputForm = createElement("div", "task-form", "");
+    inputForm.innerHTML = `
+    <input class="task-title" type="text" placeholder="Title">
+    <input class="task-description" type="text" placeholder="Description">
+    <input class="task-due-date" type="date">
+    <select class="task-priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+    <input class="task-submit" type="submit" value="Add Task">
+    <button class="task-cancel">Cancel</button>
+    `;
+    const addTaskBtn = document.querySelector(".add-taskbtn");
+    const tasks = document.querySelector(".tasks");
+    tasks.removeChild(addTaskBtn);
+    tasks.appendChild(inputForm);
+    adder();
+};
+
+const closeAddTaskForm = () => {
+    const inputForm = document.querySelector(".task-form");
+    const tasks = document.querySelector(".tasks");
+    tasks.removeChild(inputForm);
+    addTaskFormbtn();
 };
 
 const removeTaskElement = (index) => {
@@ -101,25 +154,11 @@ const initialPageLoad = () => {
             <div class="projects">Projects</div>
         </div>
         <div class="tasks">
-            <div class="task-form">
-                <input class="task-title" type="text" placeholder="Title">
-                <input class="task-description" type="text" placeholder="Description">
-                <input class="task-due-date" type="date">
-                <select class="task-priority">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-                <input class="task-submit" type="submit" value="Add Task">
-                <button class="task-cancel">Cancel</button>
-            </div>
             <div class="task-list"></div>
         </div>
     `;
   document.body.appendChild(mainContainer);
-
-  const submitTask = document.querySelector(".task-submit");
-  submitTask.addEventListener("click", addTask);
+  addTaskFormbtn();
 };
 
 document.addEventListener("DOMContentLoaded", initialPageLoad);
