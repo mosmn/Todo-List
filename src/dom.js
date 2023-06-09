@@ -183,26 +183,25 @@ const closeAddProjectForm = () => {
     document.body.removeChild(inputForm);
 };
 
-const addProject = () => {
-    const project = createNewProject(
-        document.querySelector(".project-title").value,
-        document.querySelector(".project-color").value
-    );
+const addProject = (projectForm) => {
+    const projectTitle = projectForm.querySelector(".project-title").value;
+    const projectColor = projectForm.querySelector(".project-color").value;
+    const project = createNewProject(projectTitle, projectColor);
     projectLogic.addProject(project);
     renderProjects();
     closeAddProjectForm();
-};
-
-const adderProject = () => {
+  };
+  
+  const adderProject = () => {
     const projectSubmit = document.querySelector(".project-submit");
     const projectCancel = document.querySelector(".project-cancel");
-    projectSubmit.addEventListener("click", () => {
-        addProject();
+    projectSubmit.addEventListener("click", (event) => {
+      const projectForm = event.target.closest(".project-form");
+      addProject(projectForm);
     });
-    projectCancel.addEventListener("click", () => {
-        closeAddProjectForm();
-    });
-};
+    projectCancel.addEventListener("click", closeAddProjectForm);
+  };
+  
 
 const projectFactory = (project) => {
     const i = projectsList.indexOf(project);
@@ -218,34 +217,33 @@ const projectFactory = (project) => {
 
 const renderProjects = () => {
     const projects = document.querySelector(".projects-list");
+    projects.innerHTML = "";
     projectsList.forEach((project) => {
         projects.appendChild(projectFactory(project));
     });
-    const projectsContainer = document.querySelector(".projects");
-    projectsContainer.appendChild(projects);
-    // removerProject();
+    removerProject();
 };
 
-// const removeProjectElement = (index) => {
-//     const projects = document.querySelector(".projects-list");
-//     const project = document.querySelector(`[data-index="${index}"]`);
-//     projects.removeChild(project);
-// };
+const removeProjectElement = (index) => {
+    const projects = document.querySelector(".projects-list");
+    const project = document.querySelector(`[data-index="${index}"]`);
+    projects.removeChild(project);
+};
 
-// const deleteProject = (index) => {
-//     projectLogic.removeProject(index);
-//     removeProjectElement(index);
-//     renderProjects();
-// };
+const deleteProject = (index) => {
+    projectLogic.removeProject(index);
+    removeProjectElement(index);
+    renderProjects();
+};
 
-// const removerProject = () => {
-//     const deleteProjectButtons = document.querySelectorAll(".delete-project");
-//     deleteProjectButtons.forEach((button) => {
-//         button.addEventListener("click", () => {
-//             deleteProject(button.id);
-//         });
-//     });
-// };
+const removerProject = () => {
+    const deleteProjectButtons = document.querySelectorAll(".delete-project");
+    deleteProjectButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            deleteProject(button.id);
+        });
+    });
+};
 
 const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
