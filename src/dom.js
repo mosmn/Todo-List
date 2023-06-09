@@ -137,11 +137,56 @@ const remover = () => {
   });
 };
 
+
+// Berry Red
+// Red
+// Orange
+// Yellow
+// Olive Green
+// Lime Green
+// Green
+// Mint Green
+// Teal
+// Sky Blue
+// Light Blue
+// Blue
+// Grape
+// Violet
+// Lavender
+// Magenta
+// Salmon
+// Charcoal
+// Grey
+// Taupe
 const renderAddProjectForm = () => {
     const inputForm = createElement("div", "project-form", "");
     inputForm.innerHTML = `
-        <input class="project-title" type="text" placeholder="Title" required>
-        <input class="project-color" type="color" value="#ff0000">
+        <h2>Add Project</h2>
+        <label for="project-title">Name</label>
+        <input class="project-title" type="text" required>
+        <label for="project-color">Color</label>
+        <select class="project-color">
+            <option value="#9b111e">Berry Red</option>
+            <option value="#d11d1d">Red</option>
+            <option value="#e76f51">Orange</option>
+            <option value="#f4d35e">Yellow</option>
+            <option value="#a8d8ea">Olive Green</option>
+            <option value="#90be6d">Lime Green</option>
+            <option value="#43aa8b">Green</option>
+            <option value="#4d908e">Mint Green</option>
+            <option value="#277da1">Teal</option>
+            <option value="#56a3a6">Sky Blue</option>
+            <option value="#80ced6">Light Blue</option>
+            <option value="#6497b1">Blue</option>
+            <option value="#8d6e63">Grape</option>
+            <option value="#b19cd9">Violet</option>
+            <option value="#d7bde2">Lavender</option>
+            <option value="#e599f7">Magenta</option>
+            <option value="#f7a8b8">Salmon</option>
+            <option value="#4a4a4a">Charcoal</option>
+            <option value="#9a9a9a">Grey</option>
+            <option value="#c7c7c7">Taupe</option>
+        </select>
         <input class="project-submit" type="submit" value="Add Project">
         <button class="project-cancel">Cancel</button>
     `;
