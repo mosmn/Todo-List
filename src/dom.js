@@ -1,6 +1,7 @@
 import "./style.css";
 // eslint-disable-next-line import/named, import/extensions
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
+import { projectsList, createNewProject, projectLogic } from "./projects.js";
 
 const createElement = (tagName, className, textContent) => {
   const element = document.createElement(tagName);
@@ -59,31 +60,31 @@ const addTask = () => {
 };
 
 const addTaskFormbtn = () => {
-    const addTaskBtn = createElement("div", "add-taskbtn", "");
-    addTaskBtn.innerHTML = `
+  const addTaskBtn = createElement("div", "add-taskbtn", "");
+  addTaskBtn.innerHTML = `
     <div class="add-symbol">+</div>
     <div class="add-task">Add Task</div>
     `;
-    const tasks = document.querySelector(".tasks");
-    tasks.appendChild(addTaskBtn);
-    addTaskBtn.addEventListener("click", renderAddTaskForm);
+  const tasks = document.querySelector(".tasks");
+  tasks.appendChild(addTaskBtn);
+  addTaskBtn.addEventListener("click", renderAddTaskForm);
 };
 
 const adder = () => {
-    const taskSubmit = document.querySelector(".task-submit");
-    const taskCancel = document.querySelector(".task-cancel");
-    taskSubmit.addEventListener("click", () => {
-        addTask();
-        closeAddTaskForm();
-    });
-    taskCancel.addEventListener("click", () => {
-        closeAddTaskForm();
-    });
+  const taskSubmit = document.querySelector(".task-submit");
+  const taskCancel = document.querySelector(".task-cancel");
+  taskSubmit.addEventListener("click", () => {
+    addTask();
+    closeAddTaskForm();
+  });
+  taskCancel.addEventListener("click", () => {
+    closeAddTaskForm();
+  });
 };
 
 const renderAddTaskForm = () => {
-    const inputForm = createElement("div", "task-form", "");
-    inputForm.innerHTML = `
+  const inputForm = createElement("div", "task-form", "");
+  inputForm.innerHTML = `
     <input class="task-title" type="text" placeholder="Title" required>
     <input class="task-description" type="text" placeholder="Description" required>
     <input class="task-due-date" type="date">
@@ -95,18 +96,18 @@ const renderAddTaskForm = () => {
     <input class="task-submit" type="submit" value="Add Task">
     <button class="task-cancel">Cancel</button>
     `;
-    const addTaskBtn = document.querySelector(".add-taskbtn");
-    const tasks = document.querySelector(".tasks");
-    tasks.removeChild(addTaskBtn);
-    tasks.appendChild(inputForm);
-    adder();
+  const addTaskBtn = document.querySelector(".add-taskbtn");
+  const tasks = document.querySelector(".tasks");
+  tasks.removeChild(addTaskBtn);
+  tasks.appendChild(inputForm);
+  adder();
 };
 
 const closeAddTaskForm = () => {
-    const inputForm = document.querySelector(".task-form");
-    const tasks = document.querySelector(".tasks");
-    tasks.removeChild(inputForm);
-    addTaskFormbtn();
+  const inputForm = document.querySelector(".task-form");
+  const tasks = document.querySelector(".tasks");
+  tasks.removeChild(inputForm);
+  addTaskFormbtn();
 };
 
 const removeTaskElement = (index) => {
@@ -129,12 +130,43 @@ const remover = () => {
       deleteTask(button.id);
     });
   });
-    completeTaskButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            deleteTask(button.id);
-        });
+  completeTaskButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      deleteTask(button.id);
     });
+  });
 };
+
+const renderAddProjectForm = () => {
+    const inputForm = createElement("div", "project-form", "");
+    inputForm.innerHTML = `
+        <input class="project-title" type="text" placeholder="Title" required>
+        <input class="project-color" type="color" value="#ff0000">
+        <input class="project-submit" type="submit" value="Add Project">
+        <button class="project-cancel">Cancel</button>
+    `;
+    document.body.appendChild(inputForm);
+};
+
+const addProjectFormbtn = () => {
+    const addProjectBtn = document.querySelector(".add-project");
+    addProjectBtn.addEventListener("click", renderAddProjectForm);
+};
+
+// const closeAddProjectForm = () => {
+//     const inputForm = document.querySelector(".project-form");
+//     document.body.removeChild(inputForm);
+// };
+
+// const addProject = () => {
+//     const project = createNewProject(
+//         document.querySelector(".project-title").value,
+//         document.querySelector(".project-color").value
+//     );
+//     projectLogic.addProject(project);
+//     renderProjects();
+//     closeAddProjectForm();
+// };
 
 const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
@@ -181,6 +213,8 @@ const initialPageLoad = () => {
     `;
   document.body.appendChild(mainContainer);
   addTaskFormbtn();
+  addProjectFormbtn();
 };
+
 
 document.addEventListener("DOMContentLoaded", initialPageLoad);
