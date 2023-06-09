@@ -1,5 +1,3 @@
-import "./style.css";
-
 const todoList = [];
 
 const createNewTodo = (title, description, dueDate, priority) => ({

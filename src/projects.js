@@ -1,4 +1,3 @@
-import "./style.css";
 import { todoLogic } from "./todo.js";
 
 const projectsList = [];

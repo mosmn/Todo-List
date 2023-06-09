@@ -1,6 +1,7 @@
 import "./style.css";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
+import dateLogic from "./date.js";
 
 const createElement = (tagName, className, textContent) => {
   const element = document.createElement(tagName);
@@ -17,7 +18,6 @@ const createTask = () => {
     document.querySelector(".task-due-date").value,
     document.querySelector(".task-priority").value
   );
-
   return task;
 };
 
@@ -37,7 +37,7 @@ const taskFactory = (todo) => {
         </div>
         <div class="task-body">
             <p>${todo.description}</p>
-            <p>${todo.dueDate}</p>
+            <p>${dateLogic.defaultDateFormatter(new Date(todo.dueDate))}</p>
             <p>${todo.priority}</p>
         </div>
     `;
@@ -250,6 +250,39 @@ const showHideSidebar = () => {
       sidebar.classList.toggle("collapsed");
     });    
 };
+
+const tasksHeaderGenerator = (title) => {
+    const tasksHeader = createElement("div", "tasks-header", "");
+    tasksHeader.innerHTML = `
+        <div class="tasks-header-title">${title}</div>
+    `;
+    const tasks = document.querySelector(".tasks");
+    tasks.appendChild(tasksHeader);
+};
+
+// const sidebarClick = () => {
+//     const inbox = document.querySelector(".Inbox");
+//     const today = document.querySelector(".Today");
+//     const upcoming = document.querySelector(".Upcoming");
+//     const projects = document.querySelector(".projects-list");
+//     inbox.addEventListener("click", () => {
+//         renderTasks();
+//         tasksHeaderDefault();
+//     });
+//     today.addEventListener("click", () => {
+//         renderTasks();
+//         tasksHeaderToday();
+//     });
+//     upcoming.addEventListener("click", () => {
+//         renderTasks();
+//         tasksHeaderUpcoming();
+//     });
+//     projects.addEventListener("click", (event) => {
+//         const project = projectsList[event.target.closest(".project").getAttribute("project-index")];
+//         renderTasks();
+//         tasksHeaderProject(project);
+//     });
+// };
 
 const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
