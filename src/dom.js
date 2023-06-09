@@ -137,27 +137,6 @@ const remover = () => {
   });
 };
 
-
-// Berry Red
-// Red
-// Orange
-// Yellow
-// Olive Green
-// Lime Green
-// Green
-// Mint Green
-// Teal
-// Sky Blue
-// Light Blue
-// Blue
-// Grape
-// Violet
-// Lavender
-// Magenta
-// Salmon
-// Charcoal
-// Grey
-// Taupe
 const renderAddProjectForm = () => {
     const inputForm = createElement("div", "project-form", "");
     inputForm.innerHTML = `
@@ -191,6 +170,7 @@ const renderAddProjectForm = () => {
         <button class="project-cancel">Cancel</button>
     `;
     document.body.appendChild(inputForm);
+    adderProject();
 };
 
 const addProjectFormbtn = () => {
@@ -198,19 +178,73 @@ const addProjectFormbtn = () => {
     addProjectBtn.addEventListener("click", renderAddProjectForm);
 };
 
-// const closeAddProjectForm = () => {
-//     const inputForm = document.querySelector(".project-form");
-//     document.body.removeChild(inputForm);
+const closeAddProjectForm = () => {
+    const inputForm = document.querySelector(".project-form");
+    document.body.removeChild(inputForm);
+};
+
+const addProject = () => {
+    const project = createNewProject(
+        document.querySelector(".project-title").value,
+        document.querySelector(".project-color").value
+    );
+    projectLogic.addProject(project);
+    renderProjects();
+    closeAddProjectForm();
+};
+
+const adderProject = () => {
+    const projectSubmit = document.querySelector(".project-submit");
+    const projectCancel = document.querySelector(".project-cancel");
+    projectSubmit.addEventListener("click", () => {
+        addProject();
+    });
+    projectCancel.addEventListener("click", () => {
+        closeAddProjectForm();
+    });
+};
+
+const projectFactory = (project) => {
+    const i = projectsList.indexOf(project);
+    const projectElement = createElement("div", "project", "");
+    projectElement.setAttribute("data-index", i);
+    projectElement.innerHTML = `
+        <div class="color" style="background-color: ${project.color}"></div>
+        <div class="project-title">${project.title}</div>
+        <div class="delete-project" id="${i}">X</div>
+    `;
+    return projectElement;
+};
+
+const renderProjects = () => {
+    const projects = document.querySelector(".projects-list");
+    projectsList.forEach((project) => {
+        projects.appendChild(projectFactory(project));
+    });
+    const projectsContainer = document.querySelector(".projects");
+    projectsContainer.appendChild(projects);
+    // removerProject();
+};
+
+// const removeProjectElement = (index) => {
+//     const projects = document.querySelector(".projects-list");
+//     const project = document.querySelector(`[data-index="${index}"]`);
+//     projects.removeChild(project);
 // };
 
-// const addProject = () => {
-//     const project = createNewProject(
-//         document.querySelector(".project-title").value,
-//         document.querySelector(".project-color").value
-//     );
-//     projectLogic.addProject(project);
+// const deleteProject = (index) => {
+//     projectLogic.removeProject(index);
+//     removeProjectElement(index);
 //     renderProjects();
-//     closeAddProjectForm();
+// };
+
+// const removerProject = () => {
+//     const deleteProjectButtons = document.querySelectorAll(".delete-project");
+//     deleteProjectButtons.forEach((button) => {
+//         button.addEventListener("click", () => {
+//             deleteProject(button.id);
+//         });
+//     });
 // };
 
 const initialPageLoad = () => {
@@ -250,6 +284,7 @@ const initialPageLoad = () => {
                     <div class="title">Projects</div>
                     <div class="add-project">+</div>
                 </div>
+                <div class="projects-list"></div>
             </div>
         </div>
         <div class="tasks">

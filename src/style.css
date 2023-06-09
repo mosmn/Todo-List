@@ -118,7 +118,8 @@ body {
 
 .Inbox:hover,
 .Today:hover,
-.Upcoming:hover {
+.Upcoming:hover,
+.project:hover {
   background-color: #d29797;
   color: #ffffff;
 }
@@ -382,6 +383,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -60%);
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -418,9 +420,11 @@ body {
     outline: none;
   }
 
-  .project-form input {
+  .project-form .project-title {
     border: none;
     border-bottom: 1px solid #cccccc;
+    color: #000;
+    font-size: 25px;
   }
 
   .project-form select {
@@ -437,3 +441,33 @@ body {
   .project-form select:hover {
     border-color: #b76f6f;
   }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+    .project {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .project .color {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    .project-title {
+        margin-right: auto;
+        color: #868686;
+    }
+
