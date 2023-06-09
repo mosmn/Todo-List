@@ -1,5 +1,4 @@
 import "./style.css";
-// eslint-disable-next-line import/named, import/extensions
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
 
@@ -25,7 +24,7 @@ const createTask = () => {
 const taskFactory = (todo) => {
   const i = todoList.indexOf(todo);
   const task = createElement("div", "task", "");
-  task.setAttribute("data-index", i);
+  task.setAttribute("task-index", i);
   task.innerHTML = `
         <div class="task-header">
             <div class="left">
@@ -112,7 +111,7 @@ const closeAddTaskForm = () => {
 
 const removeTaskElement = (index) => {
   const taskList = document.querySelector(".task-list");
-  const task = document.querySelector(`[data-index="${index}"]`);
+  const task = document.querySelector(`[task-index="${index}"]`);
   taskList.removeChild(task);
 };
 
@@ -138,8 +137,8 @@ const remover = () => {
 };
 
 const renderAddProjectForm = () => {
-    const inputForm = createElement("div", "project-form", "");
-    inputForm.innerHTML = `
+  const inputForm = createElement("div", "project-form", "");
+  inputForm.innerHTML = `
         <h2>Add Project</h2>
         <label for="project-title">Name</label>
         <input class="project-title" type="text" required>
@@ -169,80 +168,87 @@ const renderAddProjectForm = () => {
         <input class="project-submit" type="submit" value="Add Project">
         <button class="project-cancel">Cancel</button>
     `;
-    document.body.appendChild(inputForm);
-    adderProject();
+  document.body.appendChild(inputForm);
+  adderProject();
 };
 
 const addProjectFormbtn = () => {
-    const addProjectBtn = document.querySelector(".add-project");
-    addProjectBtn.addEventListener("click", renderAddProjectForm);
+  const addProjectBtn = document.querySelector(".add-project");
+  addProjectBtn.addEventListener("click", renderAddProjectForm);
 };
 
 const closeAddProjectForm = () => {
-    const inputForm = document.querySelector(".project-form");
-    document.body.removeChild(inputForm);
+  const inputForm = document.querySelector(".project-form");
+  document.body.removeChild(inputForm);
 };
 
 const addProject = (projectForm) => {
-    const projectTitle = projectForm.querySelector(".project-title").value;
-    const projectColor = projectForm.querySelector(".project-color").value;
-    const project = createNewProject(projectTitle, projectColor);
-    projectLogic.addProject(project);
-    renderProjects();
-    closeAddProjectForm();
-  };
-  
-  const adderProject = () => {
-    const projectSubmit = document.querySelector(".project-submit");
-    const projectCancel = document.querySelector(".project-cancel");
-    projectSubmit.addEventListener("click", (event) => {
-      const projectForm = event.target.closest(".project-form");
-      addProject(projectForm);
-    });
-    projectCancel.addEventListener("click", closeAddProjectForm);
-  };
-  
+  const projectTitle = projectForm.querySelector(".project-title").value;
+  const projectColor = projectForm.querySelector(".project-color").value;
+  const project = createNewProject(projectTitle, projectColor);
+  projectLogic.addProject(project);
+  renderProjects();
+  closeAddProjectForm();
+};
+
+const adderProject = () => {
+  const projectSubmit = document.querySelector(".project-submit");
+  const projectCancel = document.querySelector(".project-cancel");
+  projectSubmit.addEventListener("click", (event) => {
+    const projectForm = event.target.closest(".project-form");
+    addProject(projectForm);
+  });
+  projectCancel.addEventListener("click", closeAddProjectForm);
+};
 
 const projectFactory = (project) => {
-    const i = projectsList.indexOf(project);
-    const projectElement = createElement("div", "project", "");
-    projectElement.setAttribute("data-index", i);
-    projectElement.innerHTML = `
+  const i = projectsList.indexOf(project);
+  const projectElement = createElement("div", "project", "");
+  projectElement.setAttribute("project-index", i);
+  projectElement.innerHTML = `
         <div class="color" style="background-color: ${project.color}"></div>
         <div class="project-title">${project.title}</div>
-        <div class="delete-project" id="${i}">X</div>
+        <div class="delete-project" id="${i}">&#10540;</div>
     `;
-    return projectElement;
+  return projectElement;
 };
 
 const renderProjects = () => {
-    const projects = document.querySelector(".projects-list");
-    projects.innerHTML = "";
-    projectsList.forEach((project) => {
-        projects.appendChild(projectFactory(project));
-    });
-    removerProject();
+  const projects = document.querySelector(".projects-list");
+  projects.innerHTML = "";
+  projectsList.forEach((project) => {
+    projects.appendChild(projectFactory(project));
+  });
+  removerProject();
 };
 
 const removeProjectElement = (index) => {
-    const projects = document.querySelector(".projects-list");
-    const project = document.querySelector(`[data-index="${index}"]`);
-    projects.removeChild(project);
+  const projects = document.querySelector(".projects-list");
+  const project = document.querySelector(`[project-index="${index}"]`);
+  projects.removeChild(project);
 };
 
 const deleteProject = (index) => {
-    projectLogic.removeProject(index);
-    removeProjectElement(index);
-    renderProjects();
+  projectLogic.removeProject(index);
+  removeProjectElement(index);
+  renderProjects();
 };
 
 const removerProject = () => {
-    const deleteProjectButtons = document.querySelectorAll(".delete-project");
-    deleteProjectButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            deleteProject(button.id);
-        });
+  const deleteProjectButtons = document.querySelectorAll(".delete-project");
+  deleteProjectButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      deleteProject(button.id);
     });
+  });
+};
+
+const showHideSidebar = () => {
+    const menuButton = document.querySelector(".menu-button");
+    const sidebar = document.querySelector(".sidebar");
+    menuButton.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+    });    
 };
 
 const initialPageLoad = () => {
@@ -292,7 +298,7 @@ const initialPageLoad = () => {
   document.body.appendChild(mainContainer);
   addTaskFormbtn();
   addProjectFormbtn();
+    showHideSidebar();
 };
-
 
 document.addEventListener("DOMContentLoaded", initialPageLoad);

@@ -83,7 +83,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  animation: slideIn 0.3s ease;
 }
+
+.sidebar.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    max-width: 0;
+    animation: slideOut 0.3s ease;
+  }
 
 .sidebar .default {
   display: flex;
@@ -379,95 +388,273 @@ body {
 }
 
 .project-form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    height: 400px;
-    width: 450px;
-    border-radius: 20px;
-    box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.5);
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: 400px;
+  width: 450px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.5);
+}
 
-  .project-form * {
-    width: 100%;
-  }
+.project-form * {
+  width: 100%;
+}
 
-  .project-form h2 {
-    padding: 5px;
-    margin-right: auto;
-    border-bottom: 1px solid #cccccc;
-  }
-  
-  .project-form label {
-    padding: 5px;
-    margin-right: auto;
-    margin-bottom: -20px;
-  }
-  
-  .project-form input,
-  .project-form select {
-    height: 40px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
+.project-form h2 {
+  padding: 5px;
+  margin-right: auto;
+  border-bottom: 1px solid #cccccc;
+}
 
-  .project-form .project-title {
-    border: none;
-    border-bottom: 1px solid #cccccc;
-    color: #000;
-    font-size: 25px;
-  }
+.project-form label {
+  padding: 5px;
+  margin-right: auto;
+  margin-bottom: -20px;
+}
 
-  .project-form select {
-    appearance: none;
-    background-color: #fafafa;
-    color: #000000;
-  }
-  
-  .project-form select option {
-    padding: 4px;
-    background-color: #ffffff;
-  }
-  
-  .project-form select:hover {
-    border-color: #b76f6f;
-  }
+.project-form input,
+.project-form select {
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
 
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
+.project-form .project-title {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  color: #000;
+  font-size: 25px;
+}
 
-    .project {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        cursor: pointer;
-        width: 100%;
+.project-form select {
+  appearance: none;
+  background-color: #fafafa;
+  color: #000000;
+}
+
+.project-form select option {
+  padding: 4px;
+  background-color: #ffffff;
+}
+
+.project-form select:hover {
+  border-color: #b76f6f;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  animation: slideIn 0.3s ease;
+}
+
+.project .color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.project-title {
+  margin-right: auto;
+  color: #868686;
+}
+
+.delete-project {
+  font-size: 25px;
+}
+
+.delete-project:hover {
+  animation: rotate 0.3s ease;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@media screen and (max-width: 600px) {
+    .main-container {
+      grid-template-columns: 100%;
+      grid-template-rows: 45px auto;
+      grid-template-areas:
+        "header"
+        "main";
     }
 
-    .project .color {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+    .sidebar {
+        position: absolute;
+        left: 0;
+        top: 45px;
+        bottom: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 20px;
+        height: 100%;
+        background-color: #fafafa;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+    
+      .sidebar.collapsed {
+        display: none; /* Hide the sidebar when collapsed */
+      }
+    
+      .tasks-container {
+        grid-area: main;
+        background-color: #ffffff;
+        padding: 20px;
+        height: 100%;
+        overflow-y: auto;
+        transition: margin-left 0.3s ease;
+        width: 100%; /* Set width to 100% */
+      }
+    
+      .sidebar.collapsed ~ .tasks-container {
+        margin-left: 0;
+      }
+
+    .tasks {
+      padding: 0;
+    }
+
+    .task-form {
+      width: 80%;
+    }
+
+    .task-list {
+      width: 100%;
+    }
+
+    .task {
+      width: 100%;
+    }
+
+    .add-taskbtn {
+      width: 100%;
+    }
+
+    .add-taskbtn .add-symbol {
+      width: 30px;
+      height: 30px;
+      font-size: 40px;
+    }
+
+    .add-taskbtn .add-task {
+      font-size: 16px;
+    }
+
+    .project-form {
+      width: 60%;
+      height: 40%;
+      transform: translate(-50%, -50%);
+    }
+
+    .project-form h2 {
+      font-size: 20px;
+    }
+
+    .project-form label {
+      font-size: 16px;
+    }
+
+    .project-form .project-title {
+      font-size: 20px;
+    }
+
+    .project-form select {
+      font-size: 16px;
+    }
+
+    .project-form select option {
+      font-size: 16px;
+    }
+
+    .projects-list {
+      width: 100%;
+    }
+
+    .project {
+      width: 100%;
     }
 
     .project-title {
-        margin-right: auto;
-        color: #868686;
+      font-size: 16px;
     }
 
+    .delete-project {
+      font-size: 20px;
+    }
+
+    .delete-project:hover {
+      animation: none;
+    }
+
+    .menu-button {
+      width: 30px;
+      height: 25px;
+    }
+
+    .menu-button img {
+      width: 20px;
+      height: 25px;
+    }
+
+    .logo h1 {
+      font-size: 16px;
+    }
+
+    .user img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .sidebar .default img {
+      width: 25px;
+      height: 25px;
+    }
+  }

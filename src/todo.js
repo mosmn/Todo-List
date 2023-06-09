@@ -10,12 +10,12 @@ const createNewTodo = (title, description, dueDate, priority) => ({
 });
 
 const todoLogic = (() => {
-    const todoListGenerator = () => {
-        const todoList = [];
-        return todoList;
-    };
+  const todoListGenerator = () => {
+    const todoList = [];
+    return todoList;
+  };
 
-    const addTodo = (todo) => {
+  const addTodo = (todo) => {
     todoList.push(todo);
   };
 
