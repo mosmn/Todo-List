@@ -94,6 +94,10 @@ body {
     animation: slideOut 0.3s ease;
   }
 
+  .sidebar.collapsed + .tasks{
+    grid-column: 1 / span 2;
+}
+
 .sidebar .default {
   display: flex;
   flex-direction: column;
