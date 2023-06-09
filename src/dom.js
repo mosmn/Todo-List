@@ -51,7 +51,6 @@ const renderTasks = () => {
     taskList.appendChild(taskFactory(todo));
   });
   remover();
-    completer();
 };
 
 const addTask = () => {
@@ -124,25 +123,15 @@ const deleteTask = (index) => {
 
 const remover = () => {
   const deleteTaskButtons = document.querySelectorAll(".delete-task");
+  const completeTaskButtons = document.querySelectorAll(".complete-task");
   deleteTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
       deleteTask(button.id);
     });
   });
-};
-
-// when a task is completed, it is moved to the end of the list with animation
-const completeTask = (index) => {
-    removeTaskElement(index);
-    todoLogic.completeTodo(index);
-    renderTasks();
-};
-
-const completer = () => {
-    const completeTaskButtons = document.querySelectorAll(".complete-task");
     completeTaskButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            completeTask(button.id);
+            deleteTask(button.id);
         });
     });
 };
@@ -164,11 +153,27 @@ const initialPageLoad = () => {
         </div>
         <div class="sidebar">
             <div class="default">
-                <div class="Inbox">Inbox</div>
-                <div class="Today">Today</div>
-                <div class="Upcoming">Upcoming</div>
+                <div class="Inbox">
+                    <img src="https://img.icons8.com/ios/50/000000/inbox-filled.png"/>
+                    <div class="inbox">Inbox</div>
+                    <div class="inbox-count">0</div>
+                </div>
+                <div class="Today">
+                    <img src="https://img.icons8.com/ios/50/000000/sun-filled.png"/>
+                    <div class="today">Today</div>
+                    <div class="today-count">0</div>
+                </div>
+                <div class="Upcoming">
+                    <img src="https://img.icons8.com/ios/50/000000/calendar-filled.png"/>
+                    <div class="upcoming">Upcoming</div>
+                </div>
             </div>
-            <div class="projects">Projects</div>
+            <div class="projects">
+                <div class="projects-header">
+                    <div class="title">Projects</div>
+                    <div class="add-project">+</div>
+                </div>
+            </div>
         </div>
         <div class="tasks">
             <div class="task-list"></div>

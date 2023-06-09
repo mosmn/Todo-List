@@ -13,7 +13,7 @@ body {
 
 .main-container {
   display: grid;
-  grid-template-columns: min(350px, 30%) 2fr;
+  grid-template-columns: min(450px, 30%) 2fr;
   grid-template-rows: 45px 2fr;
   grid-template-areas:
     "header header"
@@ -79,7 +79,78 @@ body {
   background-color: #fafafa;
   padding: 20px;
   height: 100%;
-  max-width: 350px;
+  max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar .default {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #ababab;
+}
+
+.sidebar .default img {
+  width: 30px;
+  height: 30px;
+}
+
+.Inbox,
+.Today,
+.Upcoming {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.inbox-count,
+.today-count {
+    margin-left: auto;
+}
+
+.Inbox:hover,
+.Today:hover,
+.Upcoming:hover {
+  background-color: #d29797;
+  color: #ffffff;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.projects-header .title {
+  font-size: 20px;
+    font-weight: 900;
+    color: #6c6c6c;
+}
+
+.add-project {
+    font-size: 35px;
+    color: #6c6c6c;
+    cursor: pointer;
+}
+
+.add-project:hover{
+    color: #d29797;
 }
 
 .tasks {
