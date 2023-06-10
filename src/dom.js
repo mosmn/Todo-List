@@ -245,143 +245,146 @@ const removerProject = () => {
 };
 
 const showHideSidebar = () => {
-    const menuButton = document.querySelector(".menu-button");
-    const sidebar = document.querySelector(".sidebar");
-    menuButton.addEventListener("click", () => {
-      sidebar.classList.toggle("collapsed");
-    });    
+  const menuButton = document.querySelector(".menu-button");
+  const sidebar = document.querySelector(".sidebar");
+  menuButton.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+  });
 };
 
 const tasksHeaderGenerator = (title) => {
-    const tasksHeader = createElement("div", "tasks-header", "");
-    tasksHeader.innerHTML = `
+  const tasksHeader = createElement("div", "tasks-header", "");
+  tasksHeader.innerHTML = `
         <div class="tasks-header-title">${title}</div>
     `;
-    const tasks = document.querySelector(".tasks");
-    tasks.insertBefore(tasksHeader, tasks.childNodes[1]);
+  const tasks = document.querySelector(".tasks");
+  tasks.insertBefore(tasksHeader, tasks.childNodes[1]);
 };
 
 const eraseTasksHeader = () => {
-    const tasksHeader = document.querySelector(".tasks-header");
-    const tasks = document.querySelector(".tasks");
-    tasks.removeChild(tasksHeader);
+  const tasksHeader = document.querySelector(".tasks-header");
+  const tasks = document.querySelector(".tasks");
+  tasks.removeChild(tasksHeader);
 };
 
 const inboxPage = () => {
-    eraseTasksHeader();
-    tasksHeaderGenerator("Inbox");
-    renderTasks();
+  eraseTasksHeader();
+  tasksHeaderGenerator("Inbox");
+  renderTasks();
 };
 
 const todaysDate = () => {
-    const today = dateLogic.defaultDate();
-    const todayDate = createElement("div", "today-date", today);
-    const tasksHeader = document.querySelector(".tasks-header");
-    tasksHeader.appendChild(todayDate);
+  const today = dateLogic.defaultDate();
+  const todayDate = createElement("div", "today-date", today);
+  const tasksHeader = document.querySelector(".tasks-header");
+  tasksHeader.appendChild(todayDate);
 };
 
 const filterTodayTasks = () => {
-    const newArrayList = [];
-    todoList.forEach((todo) => {
-        if (dateLogic.checkIfDateIsToday(todo.dueDate)) {
-            newArrayList.push(todo);
-        }
+  const newArrayList = [];
+  todoList.forEach((todo) => {
+    if (dateLogic.checkIfDateIsToday(todo.dueDate)) {
+      newArrayList.push(todo);
     }
-    );
-    return newArrayList;
+  });
+  return newArrayList;
 };
 
 const renderTodayTasks = () => {
-    const taskList = document.querySelector(".task-list");
-    taskList.innerHTML = "";
-    filterTodayTasks().forEach((todo) => {
-        taskList.appendChild(taskFactory(todo));
-    });
-    remover();
+  const taskList = document.querySelector(".task-list");
+  taskList.innerHTML = "";
+  filterTodayTasks().forEach((todo) => {
+    taskList.appendChild(taskFactory(todo));
+  });
+  remover();
 };
 
 const todayPage = () => {
-    eraseTasksHeader();
-    tasksHeaderGenerator("Today");
-    todaysDate();
-    filterTodayTasks();
-    renderTodayTasks();
+  eraseTasksHeader();
+  tasksHeaderGenerator("Today");
+  todaysDate();
+  filterTodayTasks();
+  renderTodayTasks();
 };
 
 const filterUpcomingTasks = () => {
-    const newArrayList = [];
-    todoList.forEach((todo) => {
-        if (dateLogic.checkIfDateIsFuture(todo.dueDate)) {
-            newArrayList.push(todo);
-        }
+  const newArrayList = [];
+  todoList.forEach((todo) => {
+    if (dateLogic.checkIfDateIsFuture(todo.dueDate)) {
+      newArrayList.push(todo);
     }
-    );
-    return newArrayList;
+  });
+  return newArrayList;
 };
 
 const renderUpcomingTasks = () => {
-    const taskList = document.querySelector(".task-list");
-    taskList.innerHTML = "";
-    filterUpcomingTasks().forEach((todo) => {
-        taskList.appendChild(taskFactory(todo));
-    });
-    remover();
+  const taskList = document.querySelector(".task-list");
+  taskList.innerHTML = "";
+  filterUpcomingTasks().forEach((todo) => {
+    taskList.appendChild(taskFactory(todo));
+  });
+  remover();
 };
 
 const upcomingPage = () => {
-    eraseTasksHeader();
-    tasksHeaderGenerator("Upcoming");
-    renderUpcomingTasks();
+  eraseTasksHeader();
+  tasksHeaderGenerator("Upcoming");
+  renderUpcomingTasks();
 };
 
 const getCurrentProject = () => {
-    const tasksHeader = document.querySelector(".tasks-header");
-    const currentProject = tasksHeader.querySelector(".tasks-header-title").textContent;
-    return currentProject;
+  const tasksHeader = document.querySelector(".tasks-header");
+  const currentProject = tasksHeader.querySelector(
+    ".tasks-header-title"
+  ).textContent;
+  return currentProject;
 };
 
 const addTaskToCurrentProject = () => {
-    const currentProject = getCurrentProject();
-    projectsList.forEach((project) => {
-        if (project.title === currentProject) {
-            project.customTodos.push(todoList[todoList.length - 1]);
-        }
-    });
+  const currentProject = getCurrentProject();
+  projectsList.forEach((project) => {
+    if (project.title === currentProject) {
+      project.customTodos.push(todoList[todoList.length - 1]);
+    }
+  });
 };
 
 const renderTasksOfCurrentProject = (project) => {
-    const taskList = document.querySelector(".task-list");
-    taskList.innerHTML = "";
-    project.customTodos.forEach((todo) => {
-        taskList.appendChild(taskFactory(todo));
-    });
-    remover();
+  const taskList = document.querySelector(".task-list");
+  taskList.innerHTML = "";
+  project.customTodos.forEach((todo) => {
+    taskList.appendChild(taskFactory(todo));
+  });
+  remover();
 };
 
 const projectPage = (project) => {
-    eraseTasksHeader();
-    tasksHeaderGenerator(project.title);
-    renderTasksOfCurrentProject(project);
+  eraseTasksHeader();
+  tasksHeaderGenerator(project.title);
+  renderTasksOfCurrentProject(project);
 };
 
 const sidebarClick = () => {
-    const inbox = document.querySelector(".Inbox");
-    inbox.addEventListener("click", () => {
-        inboxPage();
-    });
-    const today = document.querySelector(".Today");
-    today.addEventListener("click", () => {
-        todayPage();
-    });
-    const upcoming = document.querySelector(".Upcoming");
-    upcoming.addEventListener("click", () => {
-        upcomingPage();
-    });
-    const projects = document.querySelector(".projects-list");
-    projects.addEventListener("click", (event) => {
-        const project = projectsList[event.target.closest(".project").getAttribute("project-index")];
-        projectPage(project);
-    });
+  const inbox = document.querySelector(".Inbox");
+  inbox.addEventListener("click", () => {
+    inboxPage();
+  });
+  const today = document.querySelector(".Today");
+  today.addEventListener("click", () => {
+    todayPage();
+  });
+  const upcoming = document.querySelector(".Upcoming");
+  upcoming.addEventListener("click", () => {
+    upcomingPage();
+  });
+  const projects = document.querySelector(".projects-list");
+  projects.addEventListener("click", (event) => {
+    const project =
+      projectsList[
+        event.target.closest(".project").getAttribute("project-index")
+      ];
+    projectPage(project);
+  });
 };
 
 const initialPageLoad = () => {
@@ -434,8 +437,8 @@ const initialPageLoad = () => {
   document.body.appendChild(mainContainer);
   addTaskFormbtn();
   addProjectFormbtn();
-    showHideSidebar();
-    sidebarClick();
+  showHideSidebar();
+  sidebarClick();
 };
 
 document.addEventListener("DOMContentLoaded", initialPageLoad);
