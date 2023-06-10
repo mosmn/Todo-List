@@ -4,7 +4,7 @@ The Todo List app is a web application that allows users to create and manage th
 
 ## Live Demo
 
-Check out the live demo [here](https://mosmn.github.io Todo-List/).
+Check out the live demo [here](https://mosmn.github.ioTodo-List/).
 
 ## Screenshots
 
