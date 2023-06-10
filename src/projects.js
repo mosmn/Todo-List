@@ -1,5 +1,3 @@
-import { todoLogic } from "./todo.js";
-
 const projectsList = [];
 
 const createNewProject = (title, color) => ({
