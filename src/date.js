@@ -30,6 +30,5 @@ const dateLogic = (() => {
     }
 })();
 
-console.log(dateLogic.defaultDate());
 export default dateLogic;
 

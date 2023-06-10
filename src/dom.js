@@ -257,32 +257,97 @@ const tasksHeaderGenerator = (title) => {
         <div class="tasks-header-title">${title}</div>
     `;
     const tasks = document.querySelector(".tasks");
-    tasks.appendChild(tasksHeader);
+    tasks.insertBefore(tasksHeader, tasks.childNodes[1]);
 };
 
-// const sidebarClick = () => {
-//     const inbox = document.querySelector(".Inbox");
-//     const today = document.querySelector(".Today");
-//     const upcoming = document.querySelector(".Upcoming");
-//     const projects = document.querySelector(".projects-list");
-//     inbox.addEventListener("click", () => {
-//         renderTasks();
-//         tasksHeaderDefault();
-//     });
-//     today.addEventListener("click", () => {
-//         renderTasks();
-//         tasksHeaderToday();
-//     });
-//     upcoming.addEventListener("click", () => {
-//         renderTasks();
-//         tasksHeaderUpcoming();
-//     });
-//     projects.addEventListener("click", (event) => {
-//         const project = projectsList[event.target.closest(".project").getAttribute("project-index")];
-//         renderTasks();
-//         tasksHeaderProject(project);
-//     });
-// };
+const eraseTasksHeader = () => {
+    const tasksHeader = document.querySelector(".tasks-header");
+    const tasks = document.querySelector(".tasks");
+    tasks.removeChild(tasksHeader);
+};
+
+const inboxPage = () => {
+    eraseTasksHeader();
+    tasksHeaderGenerator("Inbox");
+    renderTasks();
+};
+
+const todaysDate = () => {
+    const today = dateLogic.defaultDate();
+    const todayDate = createElement("div", "today-date", today);
+    const tasksHeader = document.querySelector(".tasks-header");
+    tasksHeader.appendChild(todayDate);
+};
+
+const filterTodayTasks = () => {
+    const newArrayList = [];
+    todoList.forEach((todo) => {
+        if (dateLogic.checkIfDateIsToday(todo.dueDate)) {
+            newArrayList.push(todo);
+        }
+    }
+    );
+    return newArrayList;
+};
+
+const renderTodayTasks = () => {
+    const taskList = document.querySelector(".task-list");
+    taskList.innerHTML = "";
+    filterTodayTasks().forEach((todo) => {
+        taskList.appendChild(taskFactory(todo));
+    });
+    remover();
+};
+
+const todayPage = () => {
+    eraseTasksHeader();
+    tasksHeaderGenerator("Today");
+    todaysDate();
+    filterTodayTasks();
+    renderTodayTasks();
+};
+
+const filterUpcomingTasks = () => {
+    const newArrayList = [];
+    todoList.forEach((todo) => {
+        if (dateLogic.checkIfDateIsFuture(todo.dueDate)) {
+            newArrayList.push(todo);
+        }
+    }
+    );
+    return newArrayList;
+};
+
+const renderUpcomingTasks = () => {
+    const taskList = document.querySelector(".task-list");
+    taskList.innerHTML = "";
+    filterUpcomingTasks().forEach((todo) => {
+        taskList.appendChild(taskFactory(todo));
+    });
+    remover();
+};
+
+const upcomingPage = () => {
+    eraseTasksHeader();
+    tasksHeaderGenerator("Upcoming");
+    renderUpcomingTasks();
+};
+
+const sidebarClick = () => {
+    const inbox = document.querySelector(".Inbox");
+    inbox.addEventListener("click", () => {
+        inboxPage();
+    });
+    const today = document.querySelector(".Today");
+    today.addEventListener("click", () => {
+        todayPage();
+    });
+    const upcoming = document.querySelector(".Upcoming");
+    upcoming.addEventListener("click", () => {
+        upcomingPage();
+    }
+    );
+};
 
 const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
@@ -325,6 +390,9 @@ const initialPageLoad = () => {
             </div>
         </div>
         <div class="tasks">
+            <div class="tasks-header">
+                <div class="tasks-header-title">Inbox</div>
+            </div>
             <div class="task-list"></div>
         </div>
     `;
@@ -332,6 +400,7 @@ const initialPageLoad = () => {
   addTaskFormbtn();
   addProjectFormbtn();
     showHideSidebar();
+    sidebarClick();
 };
 
 document.addEventListener("DOMContentLoaded", initialPageLoad);

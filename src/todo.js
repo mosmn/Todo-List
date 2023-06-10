@@ -9,8 +9,8 @@ const createNewTodo = (title, description, dueDate, priority) => ({
 
 const todoLogic = (() => {
   const todoListGenerator = () => {
-    const todoList = [];
-    return todoList;
+    const custList = [];
+    return custList;
   };
 
   const addTodo = (todo) => {
