@@ -74,6 +74,7 @@ const adder = () => {
   const taskCancel = document.querySelector(".task-cancel");
   taskSubmit.addEventListener("click", () => {
     addTask();
+    addTaskToCurrentProject();
     closeAddTaskForm();
   });
   taskCancel.addEventListener("click", () => {
@@ -333,6 +334,36 @@ const upcomingPage = () => {
     renderUpcomingTasks();
 };
 
+const getCurrentProject = () => {
+    const tasksHeader = document.querySelector(".tasks-header");
+    const currentProject = tasksHeader.querySelector(".tasks-header-title").textContent;
+    return currentProject;
+};
+
+const addTaskToCurrentProject = () => {
+    const currentProject = getCurrentProject();
+    projectsList.forEach((project) => {
+        if (project.title === currentProject) {
+            project.customTodos.push(todoList[todoList.length - 1]);
+        }
+    });
+};
+
+const renderTasksOfCurrentProject = (project) => {
+    const taskList = document.querySelector(".task-list");
+    taskList.innerHTML = "";
+    project.customTodos.forEach((todo) => {
+        taskList.appendChild(taskFactory(todo));
+    });
+    remover();
+};
+
+const projectPage = (project) => {
+    eraseTasksHeader();
+    tasksHeaderGenerator(project.title);
+    renderTasksOfCurrentProject(project);
+};
+
 const sidebarClick = () => {
     const inbox = document.querySelector(".Inbox");
     inbox.addEventListener("click", () => {
@@ -345,8 +376,12 @@ const sidebarClick = () => {
     const upcoming = document.querySelector(".Upcoming");
     upcoming.addEventListener("click", () => {
         upcomingPage();
-    }
-    );
+    });
+    const projects = document.querySelector(".projects-list");
+    projects.addEventListener("click", (event) => {
+        const project = projectsList[event.target.closest(".project").getAttribute("project-index")];
+        projectPage(project);
+    });
 };
 
 const initialPageLoad = () => {

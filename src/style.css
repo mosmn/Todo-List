@@ -87,15 +87,15 @@ body {
 }
 
 .sidebar.collapsed {
-    width: 0;
-    padding: 0;
-    overflow: hidden;
-    max-width: 0;
-    animation: slideOut 0.3s ease;
-  }
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  max-width: 0;
+  animation: slideOut 0.3s ease;
+}
 
-  .sidebar.collapsed + .tasks{
-    grid-column: 1 / span 2;
+.sidebar.collapsed + .tasks {
+  grid-column: 1 / span 2;
 }
 
 .sidebar .default {
@@ -537,144 +537,144 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-    .main-container {
-      grid-template-columns: 100%;
-      grid-template-rows: 45px auto;
-      grid-template-areas:
-        "header"
-        "main";
-    }
-
-    .sidebar {
-        position: absolute;
-        left: 0;
-        top: 45px;
-        bottom: 0;
-        max-width: 100%;
-        width: 100%;
-        padding: 20px;
-        height: 100%;
-        background-color: #fafafa;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-    
-      .sidebar.collapsed {
-        display: none; /* Hide the sidebar when collapsed */
-      }
-    
-      .tasks-container {
-        grid-area: main;
-        background-color: #ffffff;
-        padding: 20px;
-        height: 100%;
-        overflow-y: auto;
-        transition: margin-left 0.3s ease;
-        width: 100%; /* Set width to 100% */
-      }
-    
-      .sidebar.collapsed ~ .tasks-container {
-        margin-left: 0;
-      }
-
-    .tasks {
-      padding: 0;
-    }
-
-    .task-form {
-      width: 80%;
-    }
-
-    .task-list {
-      width: 100%;
-    }
-
-    .task {
-      width: 100%;
-    }
-
-    .add-taskbtn {
-      width: 100%;
-    }
-
-    .add-taskbtn .add-symbol {
-      width: 30px;
-      height: 30px;
-      font-size: 40px;
-    }
-
-    .add-taskbtn .add-task {
-      font-size: 16px;
-    }
-
-    .project-form {
-      width: 60%;
-      height: 40%;
-      transform: translate(-50%, -50%);
-    }
-
-    .project-form h2 {
-      font-size: 20px;
-    }
-
-    .project-form label {
-      font-size: 16px;
-    }
-
-    .project-form .project-title {
-      font-size: 20px;
-    }
-
-    .project-form select {
-      font-size: 16px;
-    }
-
-    .project-form select option {
-      font-size: 16px;
-    }
-
-    .projects-list {
-      width: 100%;
-    }
-
-    .project {
-      width: 100%;
-    }
-
-    .project-title {
-      font-size: 16px;
-    }
-
-    .delete-project {
-      font-size: 20px;
-    }
-
-    .delete-project:hover {
-      animation: none;
-    }
-
-    .menu-button {
-      width: 30px;
-      height: 25px;
-    }
-
-    .menu-button img {
-      width: 20px;
-      height: 25px;
-    }
-
-    .logo h1 {
-      font-size: 16px;
-    }
-
-    .user img {
-      width: 30px;
-      height: 30px;
-    }
-
-    .sidebar .default img {
-      width: 25px;
-      height: 25px;
-    }
+  .main-container {
+    grid-template-columns: 100%;
+    grid-template-rows: 45px auto;
+    grid-template-areas:
+      "header"
+      "main";
   }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    bottom: 0;
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
+    height: 100%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar.collapsed {
+    display: none; /* Hide the sidebar when collapsed */
+  }
+
+  .tasks-container {
+    grid-area: main;
+    background-color: #ffffff;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+    width: 100%; /* Set width to 100% */
+  }
+
+  .sidebar.collapsed ~ .tasks-container {
+    margin-left: 0;
+  }
+
+  .tasks {
+    padding: 0;
+  }
+
+  .task-form {
+    width: 80%;
+  }
+
+  .task-list {
+    width: 100%;
+  }
+
+  .task {
+    width: 100%;
+  }
+
+  .add-taskbtn {
+    width: 100%;
+  }
+
+  .add-taskbtn .add-symbol {
+    width: 30px;
+    height: 30px;
+    font-size: 40px;
+  }
+
+  .add-taskbtn .add-task {
+    font-size: 16px;
+  }
+
+  .project-form {
+    width: 60%;
+    height: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  .project-form h2 {
+    font-size: 20px;
+  }
+
+  .project-form label {
+    font-size: 16px;
+  }
+
+  .project-form .project-title {
+    font-size: 20px;
+  }
+
+  .project-form select {
+    font-size: 16px;
+  }
+
+  .project-form select option {
+    font-size: 16px;
+  }
+
+  .projects-list {
+    width: 100%;
+  }
+
+  .project {
+    width: 100%;
+  }
+
+  .project-title {
+    font-size: 16px;
+  }
+
+  .delete-project {
+    font-size: 20px;
+  }
+
+  .delete-project:hover {
+    animation: none;
+  }
+
+  .menu-button {
+    width: 30px;
+    height: 25px;
+  }
+
+  .menu-button img {
+    width: 20px;
+    height: 25px;
+  }
+
+  .logo h1 {
+    font-size: 16px;
+  }
+
+  .user img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sidebar .default img {
+    width: 25px;
+    height: 25px;
+  }
+}

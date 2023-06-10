@@ -8,11 +8,6 @@ const createNewTodo = (title, description, dueDate, priority) => ({
 });
 
 const todoLogic = (() => {
-  const todoListGenerator = () => {
-    const custList = [];
-    return custList;
-  };
-
   const addTodo = (todo) => {
     todoList.push(todo);
   };
@@ -21,7 +16,7 @@ const todoLogic = (() => {
     todoList.splice(index, 1);
   };
 
-  return { addTodo, removeTodo, todoListGenerator };
+  return { addTodo, removeTodo };
 })();
 
 export { todoList, createNewTodo, todoLogic };

@@ -5,7 +5,7 @@ const projectsList = [];
 const createNewProject = (title, color) => ({
   title,
   color,
-  todoList: todoLogic.todoListGenerator(),
+  customTodos: [],
 });
 
 const projectLogic = (() => {
