@@ -9,7 +9,7 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "pretty": "prettier --write .",
-    "ghpages": "git subtree push --prefix dist origin gh-pages"
+    "ghpages": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
