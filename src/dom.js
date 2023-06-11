@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import "./style.css";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
@@ -78,6 +77,7 @@ const adder = () => {
     addTask();
     addTaskToCurrentProject();
     closeAddTaskForm();
+    updateCount();
   });
   taskCancel.addEventListener("click", () => {
     closeAddTaskForm();
@@ -390,6 +390,13 @@ const sidebarClick = () => {
   });
 };
 
+const updateCount = () => {
+    const inboxCount = document.querySelector(".inbox-count");
+    inboxCount.textContent = todoLogic.countTodos();
+    const todayCount = document.querySelector(".today-count");
+    todayCount.textContent = filterTodayTasks().length;
+};
+
 const initialPageLoad = () => {
   const mainContainer = createElement("div", "main-container", "");
   mainContainer.innerHTML = `
@@ -410,12 +417,12 @@ const initialPageLoad = () => {
                 <div class="Inbox">
                     <img src="https://img.icons8.com/ios/50/000000/inbox-filled.png"/>
                     <div class="inbox">Inbox</div>
-                    <div class="inbox-count">0</div>
+                    <div class="inbox-count">${todoLogic.countTodos()}</div>
                 </div>
                 <div class="Today">
                     <img src="https://img.icons8.com/ios/50/000000/sun-filled.png"/>
                     <div class="today">Today</div>
-                    <div class="today-count">0</div>
+                    <div class="today-count">${filterTodayTasks().length}</div>
                 </div>
                 <div class="Upcoming">
                     <img src="https://img.icons8.com/ios/50/000000/calendar-filled.png"/>

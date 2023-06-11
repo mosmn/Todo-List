@@ -20,7 +20,10 @@ const todoLogic = (() => {
     storageLogic.saveTodoList(todoList);
   };
 
-  return { addTodo, removeTodo };
+  const countTodos = () => todoList.length;
+    
+
+  return { addTodo, removeTodo, countTodos };
 })();
 
 export { todoList, createNewTodo, todoLogic };

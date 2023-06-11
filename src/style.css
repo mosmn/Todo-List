@@ -597,7 +597,7 @@ body {
   }
 
   .sidebar.collapsed {
-    display: none; /* Hide the sidebar when collapsed */
+    display: none;
   }
 
   .tasks-container {
@@ -607,7 +607,7 @@ body {
     height: 100%;
     overflow-y: auto;
     transition: margin-left 0.3s ease;
-    width: 100%; /* Set width to 100% */
+    width: 100%;
   }
 
   .sidebar.collapsed ~ .tasks-container {
