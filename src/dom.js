@@ -349,6 +349,7 @@ const addTaskToCurrentProject = () => {
       project.customTodos.push(todoList[todoList.length - 1]);
     }
   });
+  storageLogic.saveProjectsList(projectsList);
 };
 
 const renderTasksOfCurrentProject = (project) => {
@@ -446,7 +447,6 @@ const initialPageLoad = () => {
 document.addEventListener("DOMContentLoaded", () => {
   storageLogic.loadSavedData();
   initialPageLoad();
+  renderProjects();
   todayPage();
 });
-
-

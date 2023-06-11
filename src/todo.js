@@ -13,7 +13,6 @@ const todoLogic = (() => {
   const addTodo = (todo) => {
     todoList.push(todo);
     storageLogic.saveTodoList(todoList);
-    console.log(storageLogic.loadTodoList());
   };
 
   const removeTodo = (index) => {
