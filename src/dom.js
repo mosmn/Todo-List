@@ -301,13 +301,6 @@ const renderTodayTasks = () => {
   remover();
 };
 
-const makeTodaysDateDefault = () => {
-  // set date to today's date by default if no date is selected
-  if (document.querySelector(".task-due-date").value === "") {
-    document.querySelector(".task-due-date").value = dateLogic.defaultDate();
-  }
-};
-
 const todayPage = () => {
   eraseTasksHeader();
   tasksHeaderGenerator("Today");
