@@ -453,7 +453,7 @@ const initialPageLoad = () => {
 document.addEventListener("DOMContentLoaded", () => {
   storageLogic.loadSavedData();
   initialPageLoad();
-  inboxPage();
+  todayPage();
 });
 
 
