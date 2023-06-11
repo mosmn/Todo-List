@@ -19,7 +19,6 @@ const todoLogic = (() => {
   const removeTodo = (index) => {
     todoList.splice(index, 1);
     storageLogic.saveTodoList(todoList);
-    console.log(storageLogic.loadTodoList());
   };
 
   return { addTodo, removeTodo };
