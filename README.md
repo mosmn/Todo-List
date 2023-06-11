@@ -10,11 +10,19 @@ Check out the live demo [here](https://mosmn.github.ioTodo-List/).
 
 ### Inbox
 
+![Inbox](./inbox.png)
+
 ### Today
+
+![Today](./today.png)
 
 ### Upcoming
 
+![Upcoming](./upcoming.png)
+
 ### Projects
+
+![Projects](./project.png)
 
 ## Features
 

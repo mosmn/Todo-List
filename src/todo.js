@@ -22,7 +22,6 @@ const todoLogic = (() => {
 
   const countTodos = () => todoList.length;
     
-
   return { addTodo, removeTodo, countTodos };
 })();
 
