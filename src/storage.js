@@ -31,9 +31,9 @@ const storageLogic = (() => {
 
   const removeTodoList = () => {
     if (storageAvailable("localStorage")) {
-        localStorage.removeItem(todoList);
+      localStorage.removeItem(todoList);
     }
-    };
+  };
 
   const loadTodoList = () => {
     if (storageAvailable("localStorage")) {
@@ -43,34 +43,51 @@ const storageLogic = (() => {
     return [];
   };
 
-    const saveProjectsList = (data) => {
-        if (storageAvailable("localStorage")) {
-            localStorage.setItem(projectsList, JSON.stringify(data));
-        }
-    };
+  const saveProjectsList = (data) => {
+    if (storageAvailable("localStorage")) {
+      localStorage.setItem(projectsList, JSON.stringify(data));
+    }
+  };
 
-    const removeProjectsList = () => {
-        if (storageAvailable("localStorage")) {
-            localStorage.removeItem(projectsList);
-        }
-    };
+  const removeProjectsList = () => {
+    if (storageAvailable("localStorage")) {
+      localStorage.removeItem(projectsList);
+    }
+  };
 
-    const loadProjectsList = () => {
-        if (storageAvailable("localStorage")) {
-            const data = localStorage.getItem(projectsList);
-            return data ? JSON.parse(data) : [];
-        }
-        return [];
-    };
+  const loadProjectsList = () => {
+    if (storageAvailable("localStorage")) {
+      const data = localStorage.getItem(projectsList);
+      return data ? JSON.parse(data) : [];
+    }
+    return [];
+  };
+
+  const loadSavedData = () => {
+    const savedTodoList = loadTodoList();
+    const savedProjectsList = loadProjectsList();
+    if (savedTodoList.length > 0) {
+      savedTodoList.forEach((todo) => {
+        todoList.push(todo);
+      });
+    }
+    if (savedProjectsList.length > 0) {
+      savedProjectsList.forEach((project) => {
+        projectsList.push(project);
+      });
+    }
+  };
 
   return {
     saveTodoList,
     removeTodoList,
     loadTodoList,
-        saveProjectsList,
-        removeProjectsList,
-        loadProjectsList
+    saveProjectsList,
+    removeProjectsList,
+    loadProjectsList,
+    loadSavedData,
   };
 })();
 
 export { storageLogic };
+

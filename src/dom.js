@@ -449,4 +449,10 @@ const initialPageLoad = () => {
   sidebarClick();
 };
 
-document.addEventListener("DOMContentLoaded", initialPageLoad);
+document.addEventListener("DOMContentLoaded", () => {
+  storageLogic.loadSavedData();
+  initialPageLoad();
+  inboxPage();
+});
+
+

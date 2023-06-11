@@ -1,3 +1,5 @@
+import { storageLogic } from "./storage.js";
+
 const todoList = [];
 
 const createNewTodo = (title, description, dueDate, priority) => ({
@@ -10,10 +12,14 @@ const createNewTodo = (title, description, dueDate, priority) => ({
 const todoLogic = (() => {
   const addTodo = (todo) => {
     todoList.push(todo);
+    storageLogic.saveTodoList(todoList);
+    console.log(storageLogic.loadTodoList());
   };
 
   const removeTodo = (index) => {
     todoList.splice(index, 1);
+    storageLogic.saveTodoList(todoList);
+    console.log(storageLogic.loadTodoList());
   };
 
   return { addTodo, removeTodo };
