@@ -2,6 +2,7 @@ import "./style.css";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
 import dateLogic from "./date.js";
+import { storageLogic } from "./storage.js";
 
 const createElement = (tagName, className, textContent) => {
   const element = document.createElement(tagName);
