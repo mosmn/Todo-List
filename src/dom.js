@@ -83,8 +83,8 @@ const adder = () => {
 };
 
 const renderAddTaskForm = () => {
-    const inputForm = createElement("div", "task-form", "");
-    inputForm.innerHTML = `
+  const inputForm = createElement("div", "task-form", "");
+  inputForm.innerHTML = `
       <input class="task-title" type="text" placeholder="Title" required>
       <input class="task-description" type="text" placeholder="Description" required>
       <input class="task-due-date" type="date" value="${dateLogic.getDefaultDate()}" required>
@@ -96,13 +96,12 @@ const renderAddTaskForm = () => {
       <input class="task-submit" type="submit" value="Add Task">
       <button class="task-cancel">Cancel</button>
       `;
-    const addTaskBtn = document.querySelector(".add-taskbtn");
-    const tasks = document.querySelector(".tasks");
-    tasks.removeChild(addTaskBtn);
-    tasks.appendChild(inputForm);
-    adder();
-  };
-  
+  const addTaskBtn = document.querySelector(".add-taskbtn");
+  const tasks = document.querySelector(".tasks");
+  tasks.removeChild(addTaskBtn);
+  tasks.appendChild(inputForm);
+  adder();
+};
 
 const closeAddTaskForm = () => {
   const inputForm = document.querySelector(".task-form");
@@ -301,10 +300,10 @@ const renderTodayTasks = () => {
 };
 
 const makeTodaysDateDefault = () => {
-    // set date to today's date by default if no date is selected
-    if (document.querySelector(".task-due-date").value === "") {
-        document.querySelector(".task-due-date").value = dateLogic.defaultDate();
-    }
+  // set date to today's date by default if no date is selected
+  if (document.querySelector(".task-due-date").value === "") {
+    document.querySelector(".task-due-date").value = dateLogic.defaultDate();
+  }
 };
 
 const todayPage = () => {
