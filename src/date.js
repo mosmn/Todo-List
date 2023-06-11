@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import format from "date-fns/format";
 import isToday from "date-fns/isToday";
 import isFuture from "date-fns/isFuture";

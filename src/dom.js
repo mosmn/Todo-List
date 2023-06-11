@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import "./style.css";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";

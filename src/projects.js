@@ -12,6 +12,7 @@ const projectLogic = (() => {
   const addProject = (project) => {
     projectsList.push(project);
     storageLogic.saveProjectsList(projectsList);
+    console.log(storageLogic.loadProjectsList());
   };
 
   const removeProject = (index) => {
