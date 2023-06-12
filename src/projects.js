@@ -19,7 +19,12 @@ const projectLogic = (() => {
     storageLogic.saveProjectsList(projectsList);
   };
 
-  return { addProject, removeProject };
+  const removeTaskFromProject = (projectIndex, taskIndex) => {
+    projectsList[projectIndex].customTodos.splice(taskIndex, 1);
+    storageLogic.saveProjectsList(projectsList);
+  };
+
+  return { addProject, removeProject, removeTaskFromProject };
 })();
 
 export { projectsList, createNewProject, projectLogic };

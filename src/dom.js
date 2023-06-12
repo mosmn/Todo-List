@@ -1,4 +1,5 @@
 import "./style.css";
+import { ta } from "date-fns/locale";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
 import dateLogic from "./date.js";
@@ -46,13 +47,31 @@ const taskFactory = (todo) => {
 };
 
 const renderTasks = () => {
-  const taskList = document.querySelector(".task-list");
-  taskList.innerHTML = "";
-  todoList.forEach((todo) => {
-    taskList.appendChild(taskFactory(todo));
-  });
-  remover();
-};
+    const taskList = document.querySelector(".task-list");
+    const taskHeader = document.querySelector(".tasks-header");
+    const taskTitle = taskHeader.querySelector(".tasks-header-title").textContent;
+    
+    taskList.innerHTML = "";
+    
+    const filteredTasks = todoList.filter(todo => {
+      if (taskTitle === "Inbox") {
+        return true;
+      } if (taskTitle === "Today") {
+        return dateLogic.checkIfDateIsToday(todo.dueDate);
+      } if (taskTitle === "Upcoming") {
+        return dateLogic.checkIfDateIsFuture(todo.dueDate);
+      } 
+        const project = projectsList.find(p => p.title === taskTitle);
+        return project && project.customTodos.some(t => t === todo);
+      
+    });
+  
+    filteredTasks.forEach(todo => {
+      taskList.appendChild(taskFactory(todo));
+    });
+    
+    remover();
+  };
 
 const addTask = () => {
   todoLogic.addTodo(createTask());
@@ -255,13 +274,15 @@ const projectFactory = (project) => {
 };
 
 const renderProjects = () => {
-  const projects = document.querySelector(".projects-list");
-  projects.innerHTML = "";
-  projectsList.forEach((project) => {
-    projects.appendChild(projectFactory(project));
-  });
-  removerProject();
-};
+    const projectsListContainer = document.querySelector(".projects-list");
+    projectsListContainer.innerHTML = "";
+    
+    projectsList.forEach(project => {
+      projectsListContainer.appendChild(projectFactory(project));
+    });
+    
+    removerProject();
+  };
 
 const removeProjectElement = (index) => {
   const projects = document.querySelector(".projects-list");
@@ -278,7 +299,8 @@ const deleteProject = (index) => {
 const removerProject = () => {
   const deleteProjectButtons = document.querySelectorAll(".delete-project");
   deleteProjectButtons.forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+        event.stopPropagation();
       deleteProject(button.id);
     });
   });
@@ -372,32 +394,32 @@ const upcomingPage = () => {
   renderUpcomingTasks();
 };
 
+
 const getCurrentProject = () => {
-  const tasksHeader = document.querySelector(".tasks-header");
-  const currentProject = tasksHeader.querySelector(
-    ".tasks-header-title"
-  ).textContent;
-  return currentProject;
-};
+    const tasksHeader = document.querySelector(".tasks-header");
+    return tasksHeader.querySelector(".tasks-header-title").textContent;
+  };
 
-const addTaskToCurrentProject = () => {
-  const currentProject = getCurrentProject();
-  projectsList.forEach((project) => {
-    if (project.title === currentProject) {
+  const addTaskToCurrentProject = () => {
+    const currentProject = getCurrentProject();
+    const project = projectsList.find(p => p.title === currentProject);
+    
+    if (project) {
       project.customTodos.push(todoList[todoList.length - 1]);
+      storageLogic.saveProjectsList(projectsList);
     }
-  });
-  storageLogic.saveProjectsList(projectsList);
-};
+  };
 
-const renderTasksOfCurrentProject = (project) => {
-  const taskList = document.querySelector(".task-list");
-  taskList.innerHTML = "";
-  project.customTodos.forEach((todo) => {
-    taskList.appendChild(taskFactory(todo));
-  });
-  remover();
-};
+  const renderTasksOfCurrentProject = (project) => {
+    const taskList = document.querySelector(".task-list");
+    taskList.innerHTML = "";
+    
+    project.customTodos.forEach(todo => {
+      taskList.appendChild(taskFactory(todo));
+    });
+    
+    remover();
+  };
 
 const projectPage = (project) => {
   eraseTasksHeader();
