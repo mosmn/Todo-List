@@ -74,10 +74,12 @@ const adder = () => {
   const taskSubmit = document.querySelector(".task-submit");
   const taskCancel = document.querySelector(".task-cancel");
   taskSubmit.addEventListener("click", () => {
-    addTask();
-    addTaskToCurrentProject();
-    closeAddTaskForm();
-    updateCount();
+    if(inputValidator()) {
+        addTask();
+        addTaskToCurrentProject();
+        closeAddTaskForm();
+        updateCount();
+    }
   });
   taskCancel.addEventListener("click", () => {
     closeAddTaskForm();
@@ -88,7 +90,7 @@ const renderAddTaskForm = () => {
   const inputForm = createElement("div", "task-form", "");
   inputForm.innerHTML = `
       <input class="task-title" type="text" placeholder="Title" required>
-      <input class="task-description" type="text" placeholder="Description" required>
+      <input class="task-description" type="text" placeholder="Description">
       <input class="task-due-date" type="date" value="${dateLogic.getDefaultDate()}" required>
       <select class="task-priority">
           <option value="low">Low</option>
@@ -103,6 +105,41 @@ const renderAddTaskForm = () => {
   tasks.removeChild(addTaskBtn);
   tasks.appendChild(inputForm);
   adder();
+};
+
+
+const inputValidator = () => {
+    const titleInput = document.querySelector(".task-title");
+    const dueDateInput = document.querySelector(".task-due-date");
+  
+    if (titleInput.validity.valueMissing) {
+      renderError("Please enter a title");
+      return false;
+    }
+  
+    if (dueDateInput.validity.valueMissing) {
+      renderError("Please enter a due date");
+      return false;
+    }
+  
+    removeError();
+    return true;
+  };
+
+const renderError = (errorMessage) => {
+    const taskForm = document.querySelector(".task-form");
+    if (!document.querySelector(".error")) {
+        const error = createElement("div", "error", errorMessage);
+        taskForm.appendChild(error);
+    }
+};
+
+const removeError = () => {
+    const error = document.querySelector(".error");
+    const taskForm = document.querySelector(".task-form");
+    if (error) {
+        taskForm.removeChild(error);
+    }
 };
 
 const closeAddTaskForm = () => {
@@ -130,11 +167,13 @@ const remover = () => {
   deleteTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
       deleteTask(button.id);
+      updateCount();
     });
   });
   completeTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
       deleteTask(button.id);
+        updateCount();
     });
   });
 };
