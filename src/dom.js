@@ -1,5 +1,4 @@
 import "./style.css";
-import { ta } from "date-fns/locale";
 import { todoList, createNewTodo, todoLogic } from "./todo.js";
 import { projectsList, createNewProject, projectLogic } from "./projects.js";
 import dateLogic from "./date.js";
