@@ -310,6 +310,31 @@ body {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #d29797;
 }
 
+.task-form .error {
+  color: #d9534f;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+  border: 2px solid #d9534f;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: #f8d7da;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    background-color: #f8d7da;
+  }
+  50% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: #f8d7da;
+  }
+}
+
 .task-list {
   margin-top: 20px;
   width: 80%;

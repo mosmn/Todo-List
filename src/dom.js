@@ -74,11 +74,11 @@ const adder = () => {
   const taskSubmit = document.querySelector(".task-submit");
   const taskCancel = document.querySelector(".task-cancel");
   taskSubmit.addEventListener("click", () => {
-    if(inputValidator()) {
-        addTask();
-        addTaskToCurrentProject();
-        closeAddTaskForm();
-        updateCount();
+    if (inputValidator()) {
+      addTask();
+      addTaskToCurrentProject();
+      closeAddTaskForm();
+      updateCount();
     }
   });
   taskCancel.addEventListener("click", () => {
@@ -107,39 +107,38 @@ const renderAddTaskForm = () => {
   adder();
 };
 
-
 const inputValidator = () => {
-    const titleInput = document.querySelector(".task-title");
-    const dueDateInput = document.querySelector(".task-due-date");
-  
-    if (titleInput.validity.valueMissing) {
-      renderError("Please enter a title");
-      return false;
-    }
-  
-    if (dueDateInput.validity.valueMissing) {
-      renderError("Please enter a due date");
-      return false;
-    }
-  
-    removeError();
-    return true;
-  };
+  const titleInput = document.querySelector(".task-title");
+  const dueDateInput = document.querySelector(".task-due-date");
+
+  if (titleInput.validity.valueMissing) {
+    renderError("Please enter a title");
+    return false;
+  }
+
+  if (dueDateInput.validity.valueMissing) {
+    renderError("Please enter a due date");
+    return false;
+  }
+
+  removeError();
+  return true;
+};
 
 const renderError = (errorMessage) => {
-    const taskForm = document.querySelector(".task-form");
-    if (!document.querySelector(".error")) {
-        const error = createElement("div", "error", errorMessage);
-        taskForm.appendChild(error);
-    }
+  const taskForm = document.querySelector(".task-form");
+  if (!document.querySelector(".error")) {
+    const error = createElement("div", "error", errorMessage);
+    taskForm.appendChild(error);
+  }
 };
 
 const removeError = () => {
-    const error = document.querySelector(".error");
-    const taskForm = document.querySelector(".task-form");
-    if (error) {
-        taskForm.removeChild(error);
-    }
+  const error = document.querySelector(".error");
+  const taskForm = document.querySelector(".task-form");
+  if (error) {
+    taskForm.removeChild(error);
+  }
 };
 
 const closeAddTaskForm = () => {
@@ -173,7 +172,7 @@ const remover = () => {
   completeTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
       deleteTask(button.id);
-        updateCount();
+      updateCount();
     });
   });
 };
@@ -430,10 +429,10 @@ const sidebarClick = () => {
 };
 
 const updateCount = () => {
-    const inboxCount = document.querySelector(".inbox-count");
-    inboxCount.textContent = todoLogic.countTodos();
-    const todayCount = document.querySelector(".today-count");
-    todayCount.textContent = filterTodayTasks().length;
+  const inboxCount = document.querySelector(".inbox-count");
+  inboxCount.textContent = todoLogic.countTodos();
+  const todayCount = document.querySelector(".today-count");
+  todayCount.textContent = filterTodayTasks().length;
 };
 
 const initialPageLoad = () => {
