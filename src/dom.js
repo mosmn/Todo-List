@@ -47,31 +47,32 @@ const taskFactory = (todo) => {
 };
 
 const renderTasks = () => {
-    const taskList = document.querySelector(".task-list");
-    const taskHeader = document.querySelector(".tasks-header");
-    const taskTitle = taskHeader.querySelector(".tasks-header-title").textContent;
-    
-    taskList.innerHTML = "";
-    
-    const filteredTasks = todoList.filter(todo => {
-      if (taskTitle === "Inbox") {
-        return true;
-      } if (taskTitle === "Today") {
-        return dateLogic.checkIfDateIsToday(todo.dueDate);
-      } if (taskTitle === "Upcoming") {
-        return dateLogic.checkIfDateIsFuture(todo.dueDate);
-      } 
-        const project = projectsList.find(p => p.title === taskTitle);
-        return project && project.customTodos.some(t => t === todo);
-      
-    });
-  
-    filteredTasks.forEach(todo => {
-      taskList.appendChild(taskFactory(todo));
-    });
-    
-    remover();
-  };
+  const taskList = document.querySelector(".task-list");
+  const taskHeader = document.querySelector(".tasks-header");
+  const taskTitle = taskHeader.querySelector(".tasks-header-title").textContent;
+
+  taskList.innerHTML = "";
+
+  const filteredTasks = todoList.filter((todo) => {
+    if (taskTitle === "Inbox") {
+      return true;
+    }
+    if (taskTitle === "Today") {
+      return dateLogic.checkIfDateIsToday(todo.dueDate);
+    }
+    if (taskTitle === "Upcoming") {
+      return dateLogic.checkIfDateIsFuture(todo.dueDate);
+    }
+    const project = projectsList.find((p) => p.title === taskTitle);
+    return project && project.customTodos.some((t) => t === todo);
+  });
+
+  filteredTasks.forEach((todo) => {
+    taskList.appendChild(taskFactory(todo));
+  });
+
+  remover();
+};
 
 const addTask = () => {
   todoLogic.addTodo(createTask());
@@ -185,6 +186,9 @@ const remover = () => {
   deleteTaskButtons.forEach((button) => {
     button.addEventListener("click", () => {
       deleteTask(button.id);
+      if (getCurrentProject() !== "Inbox") {
+        removeTaskFromCurrentProject(button.id);
+      }
       updateCount();
     });
   });
@@ -274,15 +278,15 @@ const projectFactory = (project) => {
 };
 
 const renderProjects = () => {
-    const projectsListContainer = document.querySelector(".projects-list");
-    projectsListContainer.innerHTML = "";
-    
-    projectsList.forEach(project => {
-      projectsListContainer.appendChild(projectFactory(project));
-    });
-    
-    removerProject();
-  };
+  const projectsListContainer = document.querySelector(".projects-list");
+  projectsListContainer.innerHTML = "";
+
+  projectsList.forEach((project) => {
+    projectsListContainer.appendChild(projectFactory(project));
+  });
+
+  removerProject();
+};
 
 const removeProjectElement = (index) => {
   const projects = document.querySelector(".projects-list");
@@ -300,7 +304,7 @@ const removerProject = () => {
   const deleteProjectButtons = document.querySelectorAll(".delete-project");
   deleteProjectButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-        event.stopPropagation();
+      event.stopPropagation();
       deleteProject(button.id);
     });
   });
@@ -394,32 +398,44 @@ const upcomingPage = () => {
   renderUpcomingTasks();
 };
 
-
 const getCurrentProject = () => {
-    const tasksHeader = document.querySelector(".tasks-header");
-    return tasksHeader.querySelector(".tasks-header-title").textContent;
-  };
+  const tasksHeader = document.querySelector(".tasks-header");
+  return tasksHeader.querySelector(".tasks-header-title").textContent;
+};
 
-  const addTaskToCurrentProject = () => {
-    const currentProject = getCurrentProject();
-    const project = projectsList.find(p => p.title === currentProject);
-    
-    if (project) {
-      project.customTodos.push(todoList[todoList.length - 1]);
-      storageLogic.saveProjectsList(projectsList);
-    }
-  };
+const addTaskToCurrentProject = () => {
+  const currentProject = getCurrentProject();
+  const project = projectsList.find((p) => p.title === currentProject);
 
-  const renderTasksOfCurrentProject = (project) => {
-    const taskList = document.querySelector(".task-list");
-    taskList.innerHTML = "";
-    
-    project.customTodos.forEach(todo => {
-      taskList.appendChild(taskFactory(todo));
-    });
-    
-    remover();
-  };
+  if (project) {
+    project.customTodos.push(todoList[todoList.length - 1]);
+    storageLogic.saveProjectsList(projectsList);
+  }
+
+  renderTasks();
+};
+
+const renderTasksOfCurrentProject = (project) => {
+  const taskList = document.querySelector(".task-list");
+  taskList.innerHTML = "";
+
+  project.customTodos.forEach((todo) => {
+    taskList.appendChild(taskFactory(todo));
+  });
+
+  remover();
+};
+
+const removeTaskFromCurrentProject = (index) => {
+  const currentProject = getCurrentProject();
+  const project = projectsList.find((p) => p.title === currentProject);
+
+  if (project) {
+    projectLogic.removeTaskFromProject(projectsList.indexOf(project), index);
+  }
+
+  renderTasksOfCurrentProject(project);
+};
 
 const projectPage = (project) => {
   eraseTasksHeader();
